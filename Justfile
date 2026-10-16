@@ -10,9 +10,17 @@ default:
 dbt *args="debug":
     exec dbt {{ args }} --project-dir dbt --profiles-dir dbt
 
-# Run the database schema loader / migration
+# Run the complete database pipeline (reset DB, schema migration, and load data)
 load:
     python loader.py
+
+# Load only Parquet data into the existing raw database schema
+load-data:
+    python loader.py --data-only
+
+# Reset database and apply schema migrations only
+load-schema:
+    python loader.py --schema-only
 
 fetch:
     python fetcher.py
