@@ -1,4 +1,5 @@
-set dotenv-load := true
+set dotenv-load
+export PATH := justfile_directory() + "/.venv/bin:" + env('PATH')
 set shell := ["bash", "-c"]
 
 # Default recipe: list available recipes
@@ -7,8 +8,14 @@ default:
 
 # Run dbt commands (e.g. `just dbt debug`, `just dbt run`, `just dbt test`)
 dbt *args="debug":
-    exec dbt {{args}} --project-dir dbt --profiles-dir dbt
+    exec dbt {{ args }} --project-dir dbt --profiles-dir dbt
 
 # Run the database schema loader / migration
 load:
-    .venv/bin/python loader.py
+    python loader.py
+
+fetch:
+    python fetcher.py
+
+crear-entorno:
+    python -m venv .venv

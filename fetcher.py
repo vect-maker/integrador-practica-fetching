@@ -41,3 +41,28 @@ def get_data(path: str):
     df = pd.concat(dfs)
 
     return df
+
+
+def main():
+    RAW_FOLDER = "./data/raw"
+
+    endpoints = [
+    # "zonas",
+    # "repartidores",
+    # "categorias",
+    # "platillos",
+    # "promociones",
+    # "clima",
+    # "ordenes",
+    "detalles"
+    ]
+
+
+    for endpoint in endpoints:
+        df = get_data(f"/{endpoint}")
+        df.to_parquet(f"{RAW_FOLDER}/{endpoint}.parquet")
+
+
+
+if __name__ == "__main__":
+    main()

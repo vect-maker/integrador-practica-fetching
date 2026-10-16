@@ -67,7 +67,11 @@ def apply_migrations(
     target_db: str = TARGET_DB, migration_file: Path | None = None
 ) -> None:
     """Connect to the target database and execute the schema migration directly."""
-    target_file = migration_file if migration_file is not None else Path("migrations/01_schema.sql")
+    target_file = (
+        migration_file
+        if migration_file is not None
+        else Path("migrations/01_schema.sql")
+    )
     print(f"Connecting to target database '{target_db}'...")
     sql_content = target_file.read_bytes()
     with (
